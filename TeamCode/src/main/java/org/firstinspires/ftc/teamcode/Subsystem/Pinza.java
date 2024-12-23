@@ -12,12 +12,15 @@ public class Pinza extends SubsystemBase {
     HardwareMap hardwareMap;
     Telemetry telemetry;
     ServoEx pinza1, pinza2;
+    ServoEx muñeca;
 
     public  Pinza(HardwareMap hardwareMap, Telemetry telemetry){
         this.hardwareMap = hardwareMap;
         this.telemetry =  telemetry;
         pinza1 = new SimpleServo(hardwareMap, "pinza1", 0, 180, AngleUnit.DEGREES);
         pinza2 = new SimpleServo(hardwareMap, "pinza2", 0, 180, AngleUnit.DEGREES);
+        pinza2.setInverted(true);
+        muñeca = new SimpleServo(hardwareMap, "muñeca", 0 , 180, AngleUnit.DEGREES);
     }
 
     public  void abrir(){
@@ -28,7 +31,16 @@ public class Pinza extends SubsystemBase {
         pinza1.turnToAngle(0);
         pinza1.turnToAngle(0);
     }
+public  void arriba (){
+        muñeca.turnToAngle(180);
+}
 
+public  void medio(){
+        muñeca.turnToAngle(90);
+}
+public  void bajo(){
+        muñeca.turnToAngle(0);
+}
     @Override
     public  void periodic (){
         telemetry.addData("pinza1", pinza1.getAngle());
